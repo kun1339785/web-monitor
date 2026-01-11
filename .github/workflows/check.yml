@@ -12,8 +12,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run Puppeteer script
+      - name: Set up Node.js with mirror
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmmirror.com'
+
+      - name: Install Puppeteer and run script
         run: |
-          npm install puppeteer
+          npm install puppeteer@19.7.0 --registry=https://registry.npmmirror.com
           node monitor.js
         shell: bash
