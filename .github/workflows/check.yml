@@ -1,0 +1,19 @@
+name: Check Web Content
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # 每30分钟运行一次
+  workflow_dispatch:  # 手动触发测试用
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Puppeteer script
+        run: |
+          npm install puppeteer
+          node monitor.js
+        shell: bash
