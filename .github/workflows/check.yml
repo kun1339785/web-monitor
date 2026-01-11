@@ -2,7 +2,7 @@ name: Check Web Content
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/5 * * * *'  # 每5分钟运行一次
   workflow_dispatch:
 
 jobs:
@@ -18,10 +18,12 @@ jobs:
           node-version: '18'
           registry-url: 'https://registry.npmmirror.com'
 
-      - name: Install stable Puppeteer
+      - name: Install puppeteer-core and chromedriver
         run: |
-          npm install puppeteer@19.7.0 --registry=https://registry.npmmirror.com
-          # 添加延迟，等待浏览器启动
-          sleep 5
+          npm install puppeteer-core@19.7.0 --registry=https://registry.npmmirror.com
+          npm install chromedriver --registry=https://registry.npmmirror.com
+
+      - name: Run script
+        run: |
           node monitor.js
         shell: bash
